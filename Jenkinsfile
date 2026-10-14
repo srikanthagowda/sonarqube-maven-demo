@@ -28,8 +28,8 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=$SONAR_PROJECT_KEY
+                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.2.0.4988:sonar \
+                            -Dsonar.projectKey=$SONAR_PROJECT_KEY
                     '''
                 }
             }
@@ -40,6 +40,7 @@ pipeline {
         success {
             echo 'Build, tests, and SonarQube analysis completed.'
         }
+
         failure {
             echo 'Pipeline failed. Check the stage logs.'
         }
