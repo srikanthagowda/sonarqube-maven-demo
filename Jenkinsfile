@@ -20,16 +20,16 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                bat 'mvn clean verify'
+                sh 'mvn clean verify'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    bat '''
-                        mvn sonar:sonar ^
-                        -Dsonar.projectKey=%SONAR_PROJECT_KEY%
+                    sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=$SONAR_PROJECT_KEY
                     '''
                 }
             }
